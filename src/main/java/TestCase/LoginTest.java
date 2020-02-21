@@ -2,7 +2,7 @@ package TestCase;
 import PageClasses.LoginPage;
 import PageClasses.HomePage;
 import Utility.JSONReader;
-
+import io.github.bonigarcia.wdm.WebDriverManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -20,7 +20,8 @@ public class LoginTest {
   public void  Test () throws FileNotFoundException, IOException, ParseException
   {
 	      
-		 	System.setProperty("webdriver.chrome.driver","C:\\chromedriver76\\chromedriver.exe");
+	        WebDriverManager.chromedriver().version("76").setup();
+	        System.setProperty("webdriver.chrome.driver","C:\\chromedriver76\\chromedriver.exe");
 			WebDriver driver = new ChromeDriver();
 			LoginPage.using(driver).launch().setUserName(JSONReader.ReadJSONFile("User_Name", "./Data/data.json")).setPassword(JSONReader.ReadJSONFile("Password", "./Data/data.json")).clickLogin();
      		Assert.assertTrue(HomePage.using(driver).getHomePageDashboardUserName());
